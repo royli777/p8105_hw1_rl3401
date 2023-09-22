@@ -14,15 +14,42 @@ library(moderndive)
 library(tidyverse)
 data("early_january_weather")
 ```
-1. the variables in the dataset `early_january_weather` are:
+From the help document, we can see that: 
 
-   `r names(early_january_weather)`.
-   Besides, from the help document, we can see that
+This is an hourly meterological data for LGA, JFK and EWR for the month of January 2013 and a subset of the `weather` data frame from `nycflights13`.
 
-2. This dataset has **`r nrow(early_january_weather)` rows** and **`r ncol(early_january_weather)` columns**.
+**1. the variables in this dataset:**
+
+   The variables in the dataset `early_january_weather` are: `r names(early_january_weather)`.
+   
+   Below is the explanation of the meanings of the variables:
+   
+**origin:** Weather station. Named origin to facilitate merging with nycflights13::flights data.
+
+**year, month, day, hour:** Time of recording.
+
+**temp, dewp:** Temperature and dewpoint in F.
+
+**humid:** Relative humidity.
+
+**wind_dir, wind_speed, wind_gust:** Wind direction (in degrees), speed and gust speed (in mph).
+
+**precip:** Precipitation, in inches.
+
+**pressure:** Sea level pressure in millibars.
+
+**visib:** Visibility in miles.
+
+**time_hour:** Date and hour of the recording as a POSIXct date
+
+**2. the size of the dataset (using nrow and ncol):**
+
+   This dataset has **`r nrow(early_january_weather)` rows** and **`r ncol(early_january_weather)` columns**.
 
 
-3. The mean temperature is **`r mean(pull(early_january_weather,temp))` F**.
+**3. the mean temperature:**
+
+   The mean temperature is **`r mean(pull(early_january_weather,temp))` F**.
 
 ```{r,message=FALSE}
 #create the scatterplot
