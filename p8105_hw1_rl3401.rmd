@@ -1,0 +1,80 @@
+---
+title: "p8105_hw1_rl3401.Rmd"
+author: "Ruoxi Li"
+date: "2023-09-22"
+output: github_document
+---
+```{r,echo=FALSE}
+Sys.setenv(LANGUAGE = "en")
+```
+## Problem 1
+```{r,message=FALSE}
+#set up the packages and the dataset
+library(moderndive)
+library(tidyverse)
+data("early_january_weather")
+```
+1. the variables in the dataset `early_january_weather` are:
+
+   `r names(early_january_weather)`.
+   Besides, from the help document, we can see that
+
+2. This dataset has **`r nrow(early_january_weather)` rows** and **`r ncol(early_january_weather)` columns**.
+
+
+3. The mean temperature is **`r mean(pull(early_january_weather,temp))` F**.
+
+```{r,message=FALSE}
+#create the scatterplot
+ggplot(early_january_weather, aes(x = time_hour, y= temp, color=humid)) + 
+geom_point()
+#save the scatterplot
+ggsave("scatter1.png")
+```
+This scatterplot shows the relationship between `time_hour` on the **x-axis** and `temperature` on the **y-axis**, with the **color** of the points  based on the `humidity`. 
+
+From the plot, it appears that as `time_hour` increases, there is a general tendency for both `temperature` and `humidity` to increase.
+
+## Problem 2
+
+```{r}
+#create the dataframe
+hw1_df <- tibble(
+  random_sample = rnorm(10),
+  logical_vector = random_sample > 0, 
+  character_vector = c("R", "L", "3", "4", "0", "1", "_", "H", "W", "1"),  
+  factor_vector = factor(rep(c("Level 1", "Level 2", "Level 3"),length = 10), levels = c("Level 1", "Level 2", "Level 3"))
+)
+```
+```{r}
+#show the dataframe
+print(hw1_df)
+```
+
+```{r}
+#calculate the mean of each variable
+mean(pull(hw1_df,random_sample))
+mean(pull(hw1_df,logical_vector))
+mean(pull(hw1_df,character_vector))
+mean(pull(hw1_df,factor_vector))
+```
+
+As shown above, the means of the `random sample` and the `logical factor` **can be calculated**, while the means of the `character vector` and the `factor vector` **can not be calculated**.
+
+```{r,eval=FALSE}
+mean(as.numeric(pull(hw1_df,logical_vector)))
+mean(as.numeric(pull(hw1_df,character_vector)))
+mean(as.numeric(pull(hw1_df,factor_vector)))
+```
+
+1. For the `logical vector`, the logical value TRUE is represented as 1, while FALSE is represented as 0.
+ 
+   When the `as.numeric() function` is used, it returns the numerical values of 0 and 1 corresponding to the logical values.
+
+2. It is not possible to calculate the mean of a character variable in R.
+
+   When the `as.numeric() function` is applied to the `character vector`, R is unable to convert the character data type to a numeric data type, resulting in NA.
+
+3. Finding the mean of a factor variable is also impossible. 
+
+   When the `as.numeric() function` is used on the `factor vector`, R assigns numerical values of 1, 2, 3 to each level of the factor variable and the mean can be calculated.
